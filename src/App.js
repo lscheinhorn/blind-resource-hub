@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import './App.css'
+import { db } from './firebase-config'
+import { collection, getDocs, addDoc, doc, deleteDoc } from 'firebase/firestore'
 
 function App() {
+  const [newLink, setNewLink] = useState ('')
+  const [newName, setNewName] = useState ('')
+  const [resources, setResources] = useState([]);
+  const resourcesCollectionRef = collection(db, 'resources');
+
+  const deleteResource = async (id) => {
+    const resourceDoc = doc(db, 'resources', id);
+    await deleteDoc(resourceDoc);
+  };
+
+  const createResource = async () => {
+    await addDoc(resourcesCollectionRef, { name: newName, link: newLink });
+  };
+
+  useEffect(() => {
+
+    const getResources = async () => {
+      const data = await getDocs(resourcesCollectionRef);
+      setResources(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getResources();
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+        placeholder="Resource name..."
+        onChange={(event) => {
+          setNewName(event.target.value);
+        }}
+      />
+      <input
+        placeholder="URL..."
+        onChange={(event) => {
+          setNewLink(event.target.value);
+        }}
+      />
+      <button onClick={createResource}> Create Resource </button>
+
+      {resources.map((resource) => {
+        return (
+          <div>
+            {' '}
+            <a href={resource.link} target='blank'>{resource.name}</a>
+            <button
+              onClick={() => {
+                deleteResource(resource.id);
+              }}
+            >
+              {' '}
+              Delete Resource{' '}
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-export default App;
+export default App
