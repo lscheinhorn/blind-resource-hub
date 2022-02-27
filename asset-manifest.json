@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/blind-resource-hub/static/css/main.073c9b0a.css",
+    "main.js": "/blind-resource-hub/static/js/main.5f3c1f3a.js",
+    "static/js/787.2c17508a.chunk.js": "/blind-resource-hub/static/js/787.2c17508a.chunk.js",
+    "index.html": "/blind-resource-hub/index.html",
+    "main.073c9b0a.css.map": "/blind-resource-hub/static/css/main.073c9b0a.css.map",
+    "main.5f3c1f3a.js.map": "/blind-resource-hub/static/js/main.5f3c1f3a.js.map",
+    "787.2c17508a.chunk.js.map": "/blind-resource-hub/static/js/787.2c17508a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.5f3c1f3a.js"
+  ]
+}
